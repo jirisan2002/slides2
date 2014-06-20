@@ -1,0 +1,67 @@
+---
+title       : User's Data Analysis
+subtitle    : An R app for analysis of small numeric data set   
+author      : James
+job         : Analyst
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+widgets     : []            # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+knit        : slidify::knit2slides
+
+---
+## About This App
+
+1. Designed for analysis of user-generated data 
+2. Powerful presentation using R 
+3. Statistical analysis including t-test and ANOVA
+
+--- 
+## How to Use This App
+1.  Upload your data
+    * Selelct a data file using "Choose File" button
+    * Select the "Header" checkbox if the file has headers
+    * Check appropriate "separator" and "Qoute" radiobuttons 
+   
+   => Your raw data will appear on the "My Data" tab on the right-hand side
+      To view the data, click on the "My Data" tab
+   
+2.  To select the plot, choose a plot type using the dropdown button in the "2.  Select the plot type".  
+    * To view the plot, click on the "Presentation" tab on the right
+    
+3.  For statistical analysis select a test type using the dropdown button in "3. Select Statistical Analysis to be performed"
+    * To view the result, click on the "Stat Test" tab
+
+---
+## Sample Data - Generate a data 
+Use R to generate random numbers and a data frame as following:
+```{r echo=TRUE}
+library(reshape)
+P <- round(rnorm(25, 8, 2.5), 2)
+A <- round(rnorm(25, 10, 3), 2)
+B <- round(rnorm(25, 11, 3.5), 2)
+AB <- round(rnorm(25, 14, 3.5), 2)
+combo <- data.frame(P, A, B, AB)
+write.csv(combo, "combo.csv", row.names=FALSE)
+melted <- melt(combo)
+```
+* "combo.csv" would be found in your R woring directory.  After you click the "Choose File" button, you have to go to this working directory to find the file.
+
+---
+## Sample "Presentation" Tab - Default; boxplot
+```{r echo=FALSE}
+summary(combo)
+```
+```{r echo=FALSE}
+boxplot(combo)
+```
+
+---
+## Sample "Stat Test" Tab - Default; t-test
+
+
+```{r echo=FALSE}
+pairwise.t.test(melted$value, melted$variable, paired = F, 
+                                   alternative = "two.sided")
+```

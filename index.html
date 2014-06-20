@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>User's Data Analysis</title>
+  <meta charset="utf-8">
+  <meta name="description" content="User's Data Analysis">
+  <meta name="author" content="James">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="./assets/css/ribbons.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>User's Data Analysis</h1>
+    <h2>An R app for analysis of small numeric data set</h2>
+    <p>James<br/>Analyst</p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>About This App</h2>
+  </hgroup>
+  <article data-timings="">
+    <ol>
+<li>Designed for analysis of user-generated data </li>
+<li>Powerful presentation using R </li>
+<li>Statistical analysis including t-test and ANOVA</li>
+</ol>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>How to Use This App</h2>
+  </hgroup>
+  <article data-timings="">
+    <ol>
+<li><p>Upload your data</p>
+
+<ul>
+<li>Selelct a data file using &quot;Choose File&quot; button</li>
+<li>Select the &quot;Header&quot; checkbox if the file has headers</li>
+<li>Check appropriate &quot;separator&quot; and &quot;Qoute&quot; radiobuttons </li>
+</ul>
+
+<p>=&gt; Your raw data will appear on the &quot;My Data&quot; tab on the right-hand side
+  To view the data, click on the &quot;My Data&quot; tab</p></li>
+<li><p>To select the plot, choose a plot type using the dropdown button in the &quot;2.  Select the plot type&quot;.  </p>
+
+<ul>
+<li>To view the plot, click on the &quot;Presentation&quot; tab on the right</li>
+</ul></li>
+<li><p>For statistical analysis select a test type using the dropdown button in &quot;3. Select Statistical Analysis to be performed&quot;</p>
+
+<ul>
+<li>To view the result, click on the &quot;Stat Test&quot; tab</li>
+</ul></li>
+</ol>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Sample Data - Generate a data</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Use R to generate random numbers and a data frame as following:</p>
+
+<pre><code class="r">library(reshape)
+</code></pre>
+
+<pre><code>## Loading required package: plyr
+## 
+## Attaching package: &#39;reshape&#39;
+## 
+## The following objects are masked from &#39;package:plyr&#39;:
+## 
+##     rename, round_any
+</code></pre>
+
+<pre><code class="r">P &lt;- round(rnorm(25, 8, 2.5), 2)
+A &lt;- round(rnorm(25, 10, 3), 2)
+B &lt;- round(rnorm(25, 11, 3.5), 2)
+AB &lt;- round(rnorm(25, 14, 3.5), 2)
+combo &lt;- data.frame(P, A, B, AB)
+write.csv(combo, &quot;combo.csv&quot;, row.names = FALSE)
+melted &lt;- melt(combo)
+</code></pre>
+
+<pre><code>## Using  as id variables
+</code></pre>
+
+<ul>
+<li>&quot;combo.csv&quot; would be found in your R woring directory.  After you click the &quot;Choose File&quot; button, you have to go to this working directory to find the file.</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Sample &quot;Presentation&quot; Tab - Default; boxplot</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code>##        P               A               B               AB       
+##  Min.   : 1.37   Min.   : 4.61   Min.   : 2.86   Min.   : 5.34  
+##  1st Qu.: 6.38   1st Qu.: 7.39   1st Qu.: 8.14   1st Qu.:11.14  
+##  Median : 7.41   Median :11.26   Median :10.89   Median :14.33  
+##  Mean   : 7.85   Mean   :10.51   Mean   :10.64   Mean   :14.40  
+##  3rd Qu.: 9.28   3rd Qu.:13.11   3rd Qu.:13.10   3rd Qu.:17.20  
+##  Max.   :14.46   Max.   :15.68   Max.   :17.16   Max.   :21.50
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-3.png" alt="plot of chunk unnamed-chunk-3"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>Sample &quot;Stat Test&quot; Tab - Default; t-test</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code>## 
+##  Pairwise comparisons using t tests with pooled SD 
+## 
+## data:  melted$value and melted$variable 
+## 
+##    P       A       B      
+## A  0.01369 -       -      
+## B  0.01369 0.89497 -      
+## AB 4.9e-09 0.00052 0.00068
+## 
+## P value adjustment method: holm
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='About This App'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='How to Use This App'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Sample Data - Generate a data'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Sample &quot;Presentation&quot; Tab - Default; boxplot'>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title='Sample &quot;Stat Test&quot; Tab - Default; t-test'>
+         5
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>
